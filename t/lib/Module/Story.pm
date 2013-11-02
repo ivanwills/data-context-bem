@@ -1,6 +1,6 @@
-package Data::Context::BEM;
+package Module::Story;
 
-# Created on: 2013-11-02 20:51:18
+# Created on: 2013-11-02 21:03:51
 # Create by:  Ivan Wills
 # $Id$
 # $Revision$, $HeadURL$, $Date$
@@ -14,9 +14,9 @@ use List::Util;
 use Data::Dumper qw/Dumper/;
 use English qw/ -no_match_vars /;
 
+
 our $VERSION = version->new('0.0.1');
 
-extends 'Data::Context';
 
 
 1;
@@ -25,15 +25,15 @@ __END__
 
 =head1 NAME
 
-Data::Context::BEM - A Perl implementation of BEM
+Module::Story - <One-line description of module's purpose>
 
 =head1 VERSION
 
-This documentation refers to Data::Context::BEM version 0.0.1
+This documentation refers to Module::Story version 0.0.1
 
 =head1 SYNOPSIS
 
-   use Data::Context::BEM;
+   use Module::Story;
 
    # Brief but working code example(s) here showing the most common usage(s)
    # This section will be as far as many users bother reading, so make it as
