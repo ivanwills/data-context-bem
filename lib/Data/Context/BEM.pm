@@ -42,6 +42,22 @@ This documentation refers to Data::Context::BEM version 0.0.1
 
 =head1 DESCRIPTION
 
+BEM is a framework/protocol for how to build HTML or XML pages. The specification
+suggests how to assemble a page using Blocks, Elements and Modifiers.
+
+The essence of this module is to provide a perl implementation that particularly
+allows the easy packaging of Modules so they can be distributed alone and used
+by any site using this library. The aim is also that any site using this module
+can overrite any part of an external module.
+
+=head2 Deployed Modules
+
+Here is what an example module (Example) might look like:
+
+ lib/MyApp/BEM/Block/Example.pm
+ root/block/example/module.js
+ root/block/example/module.css
+
 =head1 SUBROUTINES/METHODS
 
 =head1 DIAGNOSTICS
@@ -51,6 +67,12 @@ This documentation refers to Data::Context::BEM version 0.0.1
 =head1 DEPENDENCIES
 
 =head1 INCOMPATIBILITIES
+
+=head1 HISTORY
+
+While this is an attempt at implementing Yandex's BEM protocol it is also
+influenced by work of one of the people who originally started the work at
+Yandex but left before it had evolved into BEM.
 
 =head1 BUGS AND LIMITATIONS
 
