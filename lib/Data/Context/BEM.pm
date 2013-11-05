@@ -42,7 +42,43 @@ around BUILDARGS => sub {
     return $class->$orig($args);
 };
 
+around get => sub {
+    my ($orig, $slef, @args) = @_;
+    return $slef->$orig($args);
+};
+
 sub get_html {
+    my ($self, $path, $args, $params) = @_;
+
+    # get processed data
+    my $data = $self->get($path, $params);
+
+    # get base template
+    my $base_block = $data->{block};
+
+    # set template path per config
+    $self->set_template_path();
+
+    # call template with data
+    $self->template->process(
+        "block/$base_block.tt",
+        {
+            %$data,
+            bem => $self,
+        }
+    );
+
+    # if debug mode do nothing
+    # if prod mode generate js & css files (concat & compress)
+
+    return $html;
+}
+
+sub get_styles {
+    my ($self, $path, $args, $params) = @_;
+}
+
+sub get_scripts {
     my ($self, $path, $args, $params) = @_;
 }
 
