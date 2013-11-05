@@ -1,6 +1,6 @@
-package Data::Context::BEM::Block;
+package Data::Context::BEM::Block::Page;
 
-# Created on: 2013-11-04 16:45:07
+# Created on: 2013-11-04 16:45:13
 # Create by:  Ivan Wills
 # $Id$
 # $Revision$, $HeadURL$, $Date$
@@ -14,6 +14,8 @@ use List::Util;
 use Data::Dumper qw/Dumper/;
 use English qw/ -no_match_vars /;
 
+extends 'Data::Context::BEM::Block';
+
 our $VERSION = version->new('0.0.1');
 
 
@@ -23,16 +25,16 @@ __END__
 
 =head1 NAME
 
-Data::Context::BEM::Block - <One-line description of module's purpose>
+Data::Context::BEM::Block::Page - <One-line description of module's purpose>
 
 =head1 VERSION
 
-This documentation refers to Data::Context::BEM::Block version 0.0.1
+This documentation refers to Data::Context::BEM::Block::Page version 0.0.1
 
 
 =head1 SYNOPSIS
 
-   use Data::Context::BEM::Block;
+   use Data::Context::BEM::Block::Page;
 
    # Brief but working code example(s) here showing the most common usage(s)
    # This section will be as far as many users bother reading, so make it as

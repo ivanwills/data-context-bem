@@ -8,13 +8,13 @@
         <title>Untitled Document</title>
         <meta http-equiv="Content-Type"     content="text/html; charset=utf-8" />
         <meta http-equiv="Content-Language" content="en-au" />
-        [% FOREACH meta IN metadata %]
+        [% FOREACH meta IN block.metadata %]
         <meta name="[% meta.name | html %]" content="[% meta.value | html %]" />
         [% END %]
-        [% FOREACH css IN styles %]
+        [% FOREACH css IN block.styles %]
         <link href="[% css.href || css %]" rel="[% css.rel || 'stylesheet' %]" type="[% css.type || 'text/css' %]" media="[% css.media || 'screen, print' %]" />
         [% END %]
-        [% FOREACH script IN scripts %]
+        [% FOREACH script IN block.scripts %]
         <script type="[% script.type || 'text/javascript' | html %]" src="[% script.src || script | html %]"></script>
         [% END %]
     </head>
@@ -22,3 +22,17 @@
     [% INCLUDE content %]
     </body>
 </html>
+
+[%- BLOCK content %]
+[%# Start Wrap HTML %]
+
+[%# content HTML %]
+[% FOREACH item in content %]
+    <div class="[% bem.class(item) %]">
+        [% INCLUDE bem.template(item) block = item %]
+    </div>
+[% END %]
+
+[%# End Wrap HTML %]
+
+[% END -%]
