@@ -18,6 +18,42 @@ our $VERSION = version->new('0.0.1');
 
 extends 'Data::Context';
 
+has template => (
+    is       => 'rw',
+    isa      => 'Template',
+    required => 1,
+    lazy     => 1,
+    builder  => '_template',
+);
+
+around BUILDARGS => sub {
+    my ($orig, $class, @args) = @_;
+    my $args
+        = !@args     ? {}
+        : @args == 1 ? $args[0]
+        :              {@args};
+
+    if ( $args->{Template} && !$args->{template} ) {
+        $args->{template} = Template->new(
+            $args->{Template},
+        );
+    }
+
+    return $class->$orig($args);
+};
+
+sub get_html {
+    my ($self, $path, $args, $params) = @_;
+}
+
+sub _template {
+    my ($self) = @_;
+
+    my $template = Template->new(
+    );
+
+    return $template;
+}
 
 1;
 
@@ -46,17 +82,17 @@ BEM is a framework/protocol for how to build HTML or XML pages. The specificatio
 suggests how to assemble a page using Blocks, Elements and Modifiers.
 
 The essence of this module is to provide a perl implementation that particularly
-allows the easy packaging of Modules so they can be distributed alone and used
+allows the easy packaging of Blocks so they can be distributed alone and used
 by any site using this library. The aim is also that any site using this module
-can overrite any part of an external module.
+can overrite any part of an external block.
 
-=head2 Deployed Modules
+=head2 Deployed Blocks
 
-Here is what an example module (Example) might look like:
+Here is what an example block (Example) might look like:
 
  lib/MyApp/BEM/Block/Example.pm
- root/block/example/module.js
- root/block/example/module.css
+ root/block/example/block.js
+ root/block/example/block.css
 
 =head1 SUBROUTINES/METHODS
 
