@@ -7,6 +7,7 @@ package Data::Context::BEM::Block::Page;
 # $Revision$, $Source$, $Date$
 
 use Moose;
+use namespace::autoclean;
 use version;
 use Carp;
 use Scalar::Util;
@@ -18,6 +19,7 @@ extends 'Data::Context::BEM::Block';
 
 our $VERSION = version->new('0.0.1');
 
+__PACKAGE__->meta->make_immutable;
 
 1;
 

@@ -7,6 +7,7 @@ package Data::Context::BEM;
 # $Revision$, $Source$, $Date$
 
 use Moose;
+use namespace::autoclean;
 use version;
 use Carp;
 use Scalar::Util;
@@ -90,6 +91,8 @@ sub _template {
 
     return $template;
 }
+
+__PACKAGE__->meta->make_immutable;
 
 1;
 
