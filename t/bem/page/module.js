@@ -1,1 +1,1 @@
-/* PAGE.js */
+/* Page.js */
