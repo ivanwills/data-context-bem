@@ -19,6 +19,10 @@ our $VERSION = version->new('0.0.1');
 
 extends 'Data::Context';
 
+has '+instance_class' => (
+    default => 'Data::Context::BEM::Instance',
+);
+
 has template => (
     is       => 'rw',
     isa      => 'Template',
