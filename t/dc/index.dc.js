@@ -1,2 +1,7 @@
 {
+    "block" : "page",
+    "mods" : [
+    ],
+    "content" : [
+    ]
 }
