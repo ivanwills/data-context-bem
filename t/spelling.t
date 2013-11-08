@@ -31,5 +31,6 @@ add_stopwords(qw/
     BEM
     Yandex
     Yandex's
+    Javascript
 /);
 all_pod_files_spelling_ok();

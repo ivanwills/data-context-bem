@@ -49,7 +49,7 @@ around BUILDARGS => sub {
 
 around get => sub {
     my ($orig, $slef, @args) = @_;
-    return $slef->$orig($args);
+    return $slef->$orig(@args);
 };
 
 sub get_html {
@@ -65,12 +65,14 @@ sub get_html {
     $self->set_template_path();
 
     # call template with data
+    my $html;
     $self->template->process(
         "block/$base_block.tt",
         {
             %$data,
             bem => $self,
-        }
+        },
+        \$html,
     );
 
     # if debug mode do nothing
@@ -138,6 +140,19 @@ Here is what an example block (Example) might look like:
  root/block/example/block.css
 
 =head1 SUBROUTINES/METHODS
+
+=head3 C<get_html ( )>
+
+Get the processed HTML
+
+=head3 C<get_styles ( )>
+
+Get the processed Javascript
+
+=head3 C<get_scripts ( )>
+
+Get the processed CSS
+
 
 =head1 DIAGNOSTICS
 
