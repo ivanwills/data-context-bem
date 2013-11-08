@@ -127,7 +127,7 @@ suggests how to assemble a page using Blocks, Elements and Modifiers.
 The essence of this module is to provide a perl implementation that particularly
 allows the easy packaging of Blocks so they can be distributed alone and used
 by any site using this library. The aim is also that any site using this module
-can overrite any part of an external block.
+can overwrite any part of an external block.
 
 =head2 Deployed Blocks
 
