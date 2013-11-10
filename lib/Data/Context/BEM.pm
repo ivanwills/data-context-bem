@@ -14,6 +14,8 @@ use Scalar::Util;
 use List::Util;
 use Data::Dumper qw/Dumper/;
 use English qw/ -no_match_vars /;
+use Data::Context::BEM::Instance;
+use Template;
 
 our $VERSION = version->new('0.0.1');
 
@@ -30,6 +32,10 @@ has template => (
     lazy     => 1,
     builder  => '_template',
 );
+has template_path => (
+    is  => 'rw',
+    isa => 'Str',
+);
 
 around BUILDARGS => sub {
     my ($orig, $class, @args) = @_;
@@ -38,11 +44,13 @@ around BUILDARGS => sub {
         : @args == 1 ? $args[0]
         :              {@args};
 
+    warn Dumper $args;
     if ( $args->{Template} && !$args->{template} ) {
         $args->{template} = Template->new(
             $args->{Template},
         );
     }
+    $args->{template_path} ||= $args->{Template}{PATH};
 
     return $class->$orig($args);
 };
@@ -87,6 +95,13 @@ sub get_styles {
 
 sub get_scripts {
     my ($self, $path, $args, $params) = @_;
+}
+
+sub set_template_path {
+    my ($self, $device_path) = @_;
+
+    if ($device_path) {
+    }
 }
 
 sub _template {
