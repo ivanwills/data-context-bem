@@ -81,6 +81,7 @@ sub main {
             fh    => $log_file,
             level => 1,
         ),
+        debug => 1,
     );
 
     my @files = dir( $option{dc_path} )->children;
@@ -96,7 +97,13 @@ sub main {
         $script =~ s(^$option{dc_path}/?)();
         $script =~ s([.]dc[.]\w+$)();
         my $html = $bem->get_html($script);
-        warn $html;
+
+        my $out_file = $file;
+        $out_file =~ s/^$option{dc_path}/$option{out}/;
+        $out_file =~ s/[.]dc[.]\w+$/.html/;
+        $out_file = file($out_file);
+        $out_file->parent->mkpath;
+        $out_file->spew($html);
     }
 
     return;
