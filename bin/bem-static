@@ -19,6 +19,7 @@ use English qw/ -no_match_vars /;
 use FindBin qw/$Bin/;
 use Path::Class;
 use Data::Context::BEM;
+use Data::Context::Log;
 
 our $VERSION = version->new('0.0.1');
 my ($name)   = $PROGRAM_NAME =~ m{^.*/(.*?)$}mxs;
@@ -26,7 +27,7 @@ my ($name)   = $PROGRAM_NAME =~ m{^.*/(.*?)$}mxs;
 my %option = (
     out           => undef,
     dc_path       => 'dc/',
-    template_PATH => 'bem/',
+    template_INCLUDE_PATH => 'bem/',
     verbose       => 0,
     man           => 0,
     help          => 0,
@@ -47,7 +48,7 @@ sub main {
         \%option,
         'out|o=s',
         'dc_path|path|p=s',
-        'template_PATH|Path|P=s',
+        'template_INCLUDE_PATH|Path|P=s',
         'verbose|v+',
         'man',
         'help',
@@ -66,6 +67,7 @@ sub main {
     }
 
     # do stuff here
+    my $log_file = file('static.log')->openw;
     my $bem = Data::Context::BEM->new(
         path     => $option{dc_path},
         Template => {
@@ -75,14 +77,20 @@ sub main {
             grep { /^template_/ }
             keys %option
         },
+        log => Data::Context::Log->new(
+            fh    => $log_file,
+            level => 1,
+        ),
     );
 
     my @files = dir( $option{dc_path} )->children;
     while ( my $file = shift @files ) {
+        $bem->log->info($file);
         if ( -d $file ) {
             push @files, $file->children;
             next;
         }
+        next if $file !~ /[.]dc[.]\w+$/xms;
 
         my $script = "$file";
         $script =~ s(^$option{dc_path}/?)();
