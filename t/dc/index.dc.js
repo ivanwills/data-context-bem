@@ -3,5 +3,8 @@
     "mods" : [
     ],
     "content" : [
+        {
+            "block" : "heading"
+        }
     ]
 }
