@@ -2,20 +2,15 @@
 
 use strict;
 use warnings;
-use Test::More;
-use Path::Class;
 
-my $lib = file($0)->parent->parent->subdir('lib');
-my @files = $lib->children;
+use Test::More tests => 4 + 1;
+use Test::NoWarnings;
 
-while ( my $file = shift @files ) {
-    if ( -d $file ) {
-        push @files, $file->children;
-    }
-    elsif ( $file =~ /[.]pm$/ ) {
-        require_ok $file;
-    }
+BEGIN {
+    use_ok( 'Data::Context::BEM' );
+    use_ok( 'Data::Context::BEM::Instance' );
+    use_ok( 'Data::Context::BEM::Block' );
+    use_ok( 'Data::Context::BEM::Block::Page' );
 }
 
 diag( "Testing Data::Context::BEM $Data::Context::BEM::VERSION, Perl $], $^X" );
-done_testing();
