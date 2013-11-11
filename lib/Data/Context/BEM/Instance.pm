@@ -20,7 +20,25 @@ extends 'Data::Context::Instance';
 
 our $VERSION = version->new('0.0.1');
 
+has blocks => (
+    is      => 'rw',
+    isa     => 'HashRef',
+    default => sub {{}},
+);
 
+around process_data => sub {
+    my ( $orig, $self, $count, $data, $path ) = @_;
+
+    if ( ref $data eq 'HASH' && $data->{block} ) {
+        my $module = $self->dc->block_module($data->{block});
+        if ( $module ) {
+            $data->{MODULE} = $module;
+        }
+        $data->{processed} = 1;
+    }
+
+    return $orig->($count, $data, $path);
+};
 
 __PACKAGE__->meta->make_immutable;
 
