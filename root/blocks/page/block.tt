@@ -23,16 +23,24 @@
     </body>
 </html>
 
-[%- BLOCK content %]
-[%# Start Wrap HTML %]
+[%- BLOCK content -%]
+[%- # Start Wrap HTML -%]
 
-[%# content HTML %]
-[% FOREACH item in content %]
+[%- # content HTML -%]
+[%- FOREACH item IN content -%]
     <div class="[% bem.class(item) %]">
-        [% INCLUDE bem.template(item) block = item %]
+    [%- TRY -%]
+        [% template = bem.get_template(item) %]
+        [% INCLUDE $template %]
+    [% CATCH -%]
+    <div class="error">
+        Error processing '[% item.block %]'
+        [% "<pre>ERROR!\nTYPE: " _ error.type _ "\nINFO: " _ error.info _ "</pre>" IF bem.debug <= 2 -%]
     </div>
-[% END %]
+    [% END -%]
+    </div>
+[%- END -%]
 
-[%# End Wrap HTML %]
+[%- # End Wrap HTML -%]
 
-[% END -%]
+[%- END -%]
