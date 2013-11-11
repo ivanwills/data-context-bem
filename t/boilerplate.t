@@ -2,13 +2,14 @@
 
 use strict;
 use warnings;
+use Carp qw/carp croak cluck confess longmess/;
 use Test::More tests => 3 + 1;
 use Test::NoWarnings;
 
 sub not_in_file_ok {
     my ($filename, %regex) = @_;
     open( my $fh, '<', $filename )
-        or die "couldn't open $filename for reading: $!";
+        or confess "couldn't open $filename for reading: $!";
 
     my %violated;
 
@@ -37,18 +38,17 @@ sub module_boilerplate_ok {
     );
 }
 
+not_in_file_ok(README =>
+    "The README is used..."       => qr/The README is used/,
+    "'version information here'"  => qr/to provide version information/,
+);
+
 TODO: {
-    local $TODO = "Need to replace the boilerplate text";
-
-    not_in_file_ok(README =>
-        "The README is used..."       => qr/The README is used/,
-        "'version information here'"  => qr/to provide version information/,
-    );
-
+    local $TODO = 'Add correct changes content';
     not_in_file_ok(Changes =>
         "placeholder date/time"       => qr(Date/time)
     );
 }
 
-module_boilerplate_ok('Data-Context-BEM/t/boilerplate.t');
+module_boilerplate_ok('lib/Data/Context/BEM.pm');
 
