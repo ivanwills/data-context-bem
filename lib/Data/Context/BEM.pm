@@ -16,6 +16,8 @@ use Data::Dumper qw/Dumper/;
 use English qw/ -no_match_vars /;
 use Data::Context::BEM::Instance;
 use Template;
+use File::ShareDir qw/module_dir/;
+use Path::Class;
 
 our $VERSION = version->new('0.0.1');
 
@@ -36,6 +38,11 @@ has template_path => (
     is  => 'rw',
     isa => 'Str',
 );
+has block_map => (
+    is      => 'rw',
+    isa     => 'HashRef',
+    default => sub{{}},
+);
 
 around BUILDARGS => sub {
     my ($orig, $class, @args) = @_;
@@ -44,13 +51,12 @@ around BUILDARGS => sub {
         : @args == 1 ? $args[0]
         :              {@args};
 
-    warn Dumper $args;
     if ( $args->{Template} && !$args->{template} ) {
         $args->{template} = Template->new(
             $args->{Template},
         );
     }
-    $args->{template_path} ||= $args->{Template}{PATH};
+    $args->{template_path} ||= $args->{Template}{INCLUDE_PATH};
 
     return $class->$orig($args);
 };
@@ -64,18 +70,19 @@ sub get_html {
     my ($self, $path, $args, $params) = @_;
 
     # get processed data
-    my $data = $self->get($path, $params);
+    my $instance = $self->get_instance($path, $params);
+    my $data     = $instance->get_data($params);
 
     # get base template
     my $base_block = $data->{block};
 
     # set template path per config
-    $self->set_template_path();
+    $self->set_template_path($instance);
 
     # call template with data
-    my $html;
+    my $html = '';
     $self->template->process(
-        "block/$base_block.tt",
+        "blocks/$base_block/block.tt",
         {
             %$data,
             bem => $self,
@@ -97,11 +104,69 @@ sub get_scripts {
     my ($self, $path, $args, $params) = @_;
 }
 
-sub set_template_path {
-    my ($self, $device_path) = @_;
+sub block_module {
+    my ($self, $block) = @_;
+    return $self->block_map->{$block} if exists $self->block_map->{$block};
 
-    if ($device_path) {
+    my $module = 'Data::Context::BEM::Block' . ucfirst $block;
+    my $file   = "$module.pm";
+    $file =~ s{::}{/}gxms;
+    eval { require $file };
+
+    return $self->block_map->{$block} = $EVAL_ERROR ? undef : $module;
+}
+
+sub set_template_path {
+    my ($self, $instance, $device_path) = @_;
+    my $delimiter = $self->template->{DELIMITER} || ':';
+    my @paths     = split /$delimiter/, $self->template_path;
+
+    my $blocks = $instance->blocks;
+    for my $block ( keys %$blocks ) {
+        warn $block;
+        next if !$self->block_module($block);
+
+        my $dir = module_dir( $self->block_module($block) );
+        next if !$dir || !-d $dir;
+
+        push @paths, $dir;
     }
+
+    # construct page extras
+    my @extras;
+    if ($device_path) {
+        # TODO implement
+    }
+
+    my $new_path = '';
+    for my $path ( @paths ) {
+        for my $extra (@extras) {
+            $new_path .= "$path/$extra:";
+        }
+        $new_path .= "$path:";
+    }
+    chop $new_path;
+
+    $self->log->error( $self->template->{INCLUDE_PATH} = $new_path );
+
+    return;
+}
+
+sub get_template {
+    my ($self, $block) = @_;
+    return "blocks/$block->{block}/block.tt";
+}
+
+sub dump {
+    my $self = shift;
+    $self->log->warn(Dumper @_);
+}
+
+sub class {
+    my ($self, $block) = @_;
+
+    # TODO make this work for elements
+    return $block->{block};
 }
 
 sub _template {
