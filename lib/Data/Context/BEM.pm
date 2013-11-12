@@ -88,7 +88,9 @@ sub get_html {
             bem => $self,
         },
         \$html,
-    );
+    ) || do {
+        $html = $self->template->error;
+    };
 
     # if debug mode do nothing
     # if prod mode generate js & css files (concat & compress)
@@ -108,7 +110,7 @@ sub block_module {
     my ($self, $block) = @_;
     return $self->block_map->{$block} if exists $self->block_map->{$block};
 
-    my $module = 'Data::Context::BEM::Block' . ucfirst $block;
+    my $module = 'Data::Context::BEM::Block::' . ucfirst $block;
     my $file   = "$module.pm";
     $file =~ s{::}{/}gxms;
     eval { require $file };
@@ -123,10 +125,11 @@ sub set_template_path {
 
     my $blocks = $instance->blocks;
     for my $block ( keys %$blocks ) {
-        warn $block;
+        $self->log->debug($block);
         next if !$self->block_module($block);
 
         my $dir = module_dir( $self->block_module($block) );
+        $self->log->info( 'module_dir ' . Dumper { $block => $dir } ) if $self->debug <= 2;
         next if !$dir || !-d $dir;
 
         push @paths, $dir;
@@ -147,7 +150,7 @@ sub set_template_path {
     }
     chop $new_path;
 
-    $self->log->error( $self->template->{INCLUDE_PATH} = $new_path );
+    $self->template->{INCLUDE_PATH} = $new_path;
 
     return;
 }
