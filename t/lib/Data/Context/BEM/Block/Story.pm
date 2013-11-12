@@ -1,4 +1,4 @@
-package Module::Story;
+package Data::Context::BEM::Block::Story;
 
 # Created on: 2013-11-02 21:03:51
 # Create by:  Ivan Wills
@@ -25,15 +25,15 @@ __END__
 
 =head1 NAME
 
-Module::Story - <One-line description of module's purpose>
+Data::Context::BEM::Block::Story - <One-line description of module's purpose>
 
 =head1 VERSION
 
-This documentation refers to Module::Story version 0.0.1
+This documentation refers to Data::Context::BEM::Block::Story version 0.0.1
 
 =head1 SYNOPSIS
 
-   use Module::Story;
+   use Data::Context::BEM::Block::Story;
 
    # Brief but working code example(s) here showing the most common usage(s)
    # This section will be as far as many users bother reading, so make it as
