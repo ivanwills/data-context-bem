@@ -84,27 +84,37 @@ sub main {
         debug => 1,
     );
 
+    $option{out} .= '/' if $option{out} !~ m{/$};
+
     my @files = dir( $option{dc_path} )->children;
     while ( my $file = shift @files ) {
-        $bem->log->info($file);
         if ( -d $file ) {
             push @files, $file->children;
             next;
         }
         next if $file !~ /[.]dc[.]\w+$/xms;
 
-        my $script = "$file";
-        $script =~ s(^$option{dc_path}/?)();
-        $script =~ s([.]dc[.]\w+$)();
-        my $html = $bem->get_html($script);
-
         my $out_file = $file;
         $out_file =~ s/^$option{dc_path}/$option{out}/;
         $out_file =~ s/[.]dc[.]\w+$/.html/;
         $out_file = file($out_file);
+
+        my $script = "$file";
+        $script =~ s(^$option{dc_path}/?)();
+        $script =~ s([.]dc[.]\w+$)();
+
+        print "Processing $file (as $script) to $out_file\n" if $option{verbose};
+        my $html = $bem->get_html($script);
+        if ( $option{verbose} > 1 ) {
+            my $instance = $bem->get($script);
+            warn Dumper $instance;
+        }
+
         $out_file->parent->mkpath;
         $out_file->spew($html);
     }
+
+    warn Dumper $bem->block_map if $option{verbose} > 1;
 
     return;
 }
