@@ -31,6 +31,7 @@ around process_data => sub {
 
     if ( ref $data eq 'HASH' && $data->{block} ) {
         my $module = $self->dc->block_module($data->{block});
+        $self->blocks->{$data->{block}} = $module;
         if ( $module ) {
             $data->{MODULE} = $module;
         }

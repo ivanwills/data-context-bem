@@ -34,6 +34,13 @@ has template => (
     lazy     => 1,
     builder  => '_template',
 );
+has template_providers => (
+    is       => 'rw',
+    isa      => 'ArrayRef[Template::Provider]',
+    required => 1,
+    lazy     => 1,
+    builder  => '_template_provider',
+);
 has template_path => (
     is  => 'rw',
     isa => 'Str',
@@ -52,9 +59,13 @@ around BUILDARGS => sub {
         :              {@args};
 
     if ( $args->{Template} && !$args->{template} ) {
-        $args->{template} = Template->new(
+        $args->{template_providers} = [Template::Provider->new(
             $args->{Template},
-        );
+        )];
+        $args->{template} = Template->new({
+            %{$args->{Template}},
+            LOAD_TEMPLATES => $args->{template_providers},
+        });
     }
     $args->{template_path} ||= $args->{Template}{INCLUDE_PATH};
 
@@ -75,9 +86,11 @@ sub get_html {
 
     # get base template
     my $base_block = $data->{block};
+    $self->log->debug('got data');
 
     # set template path per config
     $self->set_template_path($instance);
+    $self->log->debug('set path');
 
     # call template with data
     my $html = '';
@@ -91,6 +104,7 @@ sub get_html {
     ) || do {
         $html = $self->template->error;
     };
+    $self->log->debug('processed html');
 
     # if debug mode do nothing
     # if prod mode generate js & css files (concat & compress)
@@ -124,6 +138,7 @@ sub set_template_path {
     my @paths     = split /$delimiter/, $self->template_path;
 
     my $blocks = $instance->blocks;
+    $self->log->debug('found blocks : ' . join ", ", keys %$blocks);
     for my $block ( keys %$blocks ) {
         $self->log->debug($block);
         next if !$self->block_module($block);
@@ -137,20 +152,14 @@ sub set_template_path {
 
     # construct page extras
     my @extras;
+    $self->log->debug('setting extra path info');
     if ($device_path) {
         # TODO implement
     }
 
-    my $new_path = '';
-    for my $path ( @paths ) {
-        for my $extra (@extras) {
-            $new_path .= "$path/$extra:";
-        }
-        $new_path .= "$path:";
+    for my $provider (@{ $self->template_providers }) {
+        $provider->include_path(\@paths);
     }
-    chop $new_path;
-
-    $self->template->{INCLUDE_PATH} = $new_path;
 
     return;
 }
