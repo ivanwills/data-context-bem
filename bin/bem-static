@@ -11,7 +11,6 @@ use warnings;
 use version;
 use Scalar::Util;
 use List::Util;
-#use List::MoreUtils;
 use Getopt::Long;
 use Pod::Usage;
 use Data::Dumper qw/Dumper/;
@@ -67,7 +66,7 @@ sub main {
     }
 
     # do stuff here
-    my $log_file = file('static.log')->openw;
+    my $log_file = file('bem-static.log')->opena;
     my $bem = Data::Context::BEM->new(
         path     => $option{dc_path},
         Template => {
@@ -103,7 +102,9 @@ sub main {
         $script =~ s(^$option{dc_path}/?)();
         $script =~ s([.]dc[.]\w+$)();
 
-        print "Processing $file (as $script) to $out_file\n" if $option{verbose};
+        my $msg = "Processing $file (as $script) to $out_file";
+        $bem->log->debug($msg);
+        print "$msg\n" if $option{verbose};
         my $html = $bem->get_html($script);
         if ( $option{verbose} > 1 ) {
             my $instance = $bem->get($script);
