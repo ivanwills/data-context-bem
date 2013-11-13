@@ -7,4 +7,5 @@ construct();
 done_testing();
 
 sub construct {
+    ok 1, 'dummy';
 }
