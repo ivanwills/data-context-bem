@@ -15,9 +15,7 @@ my $builder = Module::Build->new(
         'Test::NoWarnings' => 0,
     },
     share_dir => {
-        module => {
-            'Data::Context::BEM::Block::Page' => 'root',
-        },
+        dist   => 'root',
     },
     add_to_cleanup     => [ 'Data-Context-BEM-*' ],
     create_makefile_pl => 'traditional',

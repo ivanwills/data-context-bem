@@ -16,7 +16,7 @@ use Data::Dumper qw/Dumper/;
 use English qw/ -no_match_vars /;
 use Data::Context::BEM::Instance;
 use Template;
-use File::ShareDir qw/module_dir/;
+use File::ShareDir qw/module_dir dist_dir/;
 use Path::Class;
 
 our $VERSION = version->new('0.0.1');
@@ -73,8 +73,8 @@ around BUILDARGS => sub {
 };
 
 around get => sub {
-    my ($orig, $slef, @args) = @_;
-    return $slef->$orig(@args);
+    my ($orig, $self, @args) = @_;
+    return $self->$orig(@args);
 };
 
 sub get_html {
@@ -94,11 +94,13 @@ sub get_html {
 
     # call template with data
     my $html = '';
+    $self->log->debug("Template for $path: blocks/$base_block/block.tt => " . Dumper $data);
     $self->template->process(
         "blocks/$base_block/block.tt",
         {
-            %$data,
-            bem => $self,
+            %{ $params || {} },
+            block => $data,
+            bem   => $self,
         },
         \$html,
     ) || do {
@@ -149,6 +151,7 @@ sub set_template_path {
 
         push @paths, $dir;
     }
+        push @paths, dist_dir('Data-Context-BEM');
 
     # construct page extras
     my @extras;
