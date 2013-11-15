@@ -27,6 +27,7 @@ my %option = (
     out           => undef,
     dc_path       => 'dc/',
     template_INCLUDE_PATH => 'bem/',
+    debug         => 1,
     verbose       => 0,
     man           => 0,
     help          => 0,
@@ -48,6 +49,7 @@ sub main {
         'out|o=s',
         'dc_path|path|p=s',
         'template_INCLUDE_PATH|Path|P=s',
+        'debug|d=i',
         'verbose|v+',
         'man',
         'help',
@@ -66,6 +68,7 @@ sub main {
     }
 
     # do stuff here
+    $Data::Dumper::Indent = 1;
     my $log_file = file('bem-static.log')->opena;
     my $bem = Data::Context::BEM->new(
         path     => $option{dc_path},
@@ -78,9 +81,9 @@ sub main {
         },
         log => Data::Context::Log->new(
             fh    => $log_file,
-            level => 1,
+            level => $option{debug},
         ),
-        debug => 1,
+        debug => $option{debug},
     );
 
     $option{out} .= '/' if $option{out} !~ m{/$};
