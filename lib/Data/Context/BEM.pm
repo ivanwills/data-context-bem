@@ -248,6 +248,26 @@ Get the processed Javascript
 
 Get the processed CSS
 
+=head3 C<block_module ($block)>
+
+Returns a module that belongs to a block (if one exists)
+
+=head3 C<set_template_path ( $instance, $device_path )>
+
+Fora given L<Data::Context::BEM::Instance> sets the L<Template> path based
+on the specified C<template_path> and the blocks used.
+
+=head3 C<get_template ($block)>
+
+For a given block returns the template name used to process that block.
+
+=head3 C<dump (@objects)>
+
+Dumps the passed objects to the log file
+
+=head3 C<class ($block)>
+
+Returns the classes for a block.
 
 =head1 DIAGNOSTICS
 
