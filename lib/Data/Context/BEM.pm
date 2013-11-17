@@ -163,6 +163,7 @@ sub set_template_path {
     for my $provider (@{ $self->template_providers }) {
         $provider->include_path(\@paths);
     }
+    $self->log->debug('template paths = ', join ', ', @paths);
 
     return;
 }
