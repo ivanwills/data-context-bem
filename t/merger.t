@@ -13,30 +13,56 @@ merge();
 done_testing();
 
 sub merge {
-    my @a1 = [ 1, 2 ];
-    my @a2 = [ 3, 4 ];
-    my @r  = [ 3, 4 ];
-    #my $a = merger(\@a1, \@a2);
-    ok 1,
-    #is_deeply $a, \@r, 'Array of scalars right wins'
-        #or note Dumper $a, \@r;
+    my $child = {
+        content => [
+            {},
+            {
+                block => "overridden",
+                content => {
+                    blcok => "arrayified",
+                },
+            },
+        ],
+        other => {
+            some => "thing",
+        },
+    };
+    my $parent = {
+        block   => "page",
+        content => [
+            {
+                block => "head",
+            },
+            {},
+            {
+                block => "foot",
+            }
+        ],
+    };
+    my $expected = {
+        block   => "page",
+        content => [
+            {
+                block => "head",
+            },
+            {
+                block => "overridden",
+                content => [
+                    {
+                        blcok => "arrayified",
+                    },
+                ],
+            },
+            {
+                block => "foot",
+            },
+        ],
+        other => {
+            some => "thing",
+        },
+    };
 
+    is_deeply $expected, $merger->merge($child, $parent), "Merge blocks correctly"
+        or note Dumper $expected, $merger->merge($child, $parent);
 }
 
-sub merger {
-    my ($a, $b) = @_;
-
-    if ( !defined $a ) {
-        return $b;
-    }
-    elsif ( !ref $a ) {
-    }
-    elsif ( ref $a eq 'SCALAR' ) {
-    }
-    elsif ( ref $a eq 'ARRAY' ) {
-    }
-    elsif ( ref $a eq 'HASH' ) {
-    }
-    else {
-    }
-}

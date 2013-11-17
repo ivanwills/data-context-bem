@@ -29,7 +29,10 @@ sub merge {
         my $max_parent = @$parent - 1;
 
         for my $i ( 0 .. max $max_child, $max_parent ) {
-            $new->[$i] = $self->merge( $child->[$i], $parent->[$i] );
+            $new->[$i]
+                = exists $child->[$i]
+                ? $self->merge( $child->[$i], $parent->[$i] )
+                : $parent->[$i];
         }
 
         return $new;
@@ -37,8 +40,16 @@ sub merge {
     elsif ( ref $child eq 'HASH' ) {
         my $new = {};
 
-        for my $key ( uniq sort (keys %$child), (keys %$parent) ) {
-            $new->{$key} = $self->merge( $child->{$key}, $parent->{$key} );
+        for my $key ( uniq sort +(keys %$child), (keys %$parent) ) {
+            if ( $key eq 'content' ) {
+                $child->{$key}  = [ $child->{$key}  ] if ref $child->{$key}  ne 'ARRAY';
+                $parent->{$key} = [ $parent->{$key} ] if ref $parent->{$key} ne 'ARRAY';
+            }
+
+            $new->{$key}
+                = exists $child->{$key}
+                ? $self->merge( $child->{$key}, $parent->{$key} )
+                : $parent->{$key};
         }
 
         return $new;
