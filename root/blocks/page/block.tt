@@ -1,22 +1,21 @@
 [%# Page.tt %]
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<html>
     <head>
-        <title>Untitled Document</title>
+        <title>[% title || 'BEM Document' | html %]</title>
         <meta http-equiv="Content-Type"     content="text/html; charset=utf-8" />
         <meta http-equiv="Content-Language" content="en-au" />
         [%- FOREACH meta IN block.metadata %]
         <meta name="[% meta.name | html %]" content="[% meta.value | html %]" />
         [%- END %]
         [%- FOREACH css IN block.styles %]
-        <link href="[% css.href || css %]" rel="[% css.rel || 'stylesheet' %]" type="[% css.type || 'text/css' %]" media="[% css.media || 'screen, print' %]" />
+        <link href="[% css.href || css | html %]" rel="[% css.rel || 'stylesheet' | html %]" type="[% css.type || 'text/css' | html %]" media="[% css.media || 'screen, print' | html %]" />
         [%- END %]
         [%- FOREACH script IN block.scripts %]
         <script type="[% script.type || 'text/javascript' | html %]" src="[% script.src || script | html %]"></script>
         [%- END %]
     </head>
     <body>
-    [% bem.log.info(content) %]
     [% INCLUDE content %]
     </body>
 </html>
@@ -25,19 +24,20 @@
 [%- # Start Wrap HTML -%]
 
 [%- # content HTML -%]
-[%- FOREACH item IN content -%]
+[%- FOREACH item IN block.content -%]
     <div class="[% bem.class(item) %]">
-    [%- TRY;
+    [% TRY;
         template = bem.get_template(item);
-        INCLUDE $template;
-    CATCH -%]
+        temp = bem.log.debug('page : loading content ' _ template);
+        INCLUDE $template block = item;
+    CATCH %]
     <div class="error">
         Error processing '[% item.block %]'
         [% "<pre>ERROR!\nTYPE: " _ error.type _ "\nINFO: " _ error.info _ "</pre>" IF bem.debug <= 2 -%]
     </div>
-    [% END -%]
+    [%- END %]
     </div>
-[%- END -%]
+[% END -%]
 
 [%- # End Wrap HTML -%]
 
