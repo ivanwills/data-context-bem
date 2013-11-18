@@ -15,6 +15,7 @@ use List::Util;
 #use List::MoreUtils;
 use Data::Dumper qw/Dumper/;
 use English qw/ -no_match_vars /;
+use Data::Context::BEM::Merge;
 
 extends 'Data::Context::Instance';
 
@@ -40,6 +41,12 @@ around process_data => sub {
 
     return $orig->($count, $data, $path);
 };
+
+sub _merger {
+    my ($self) = @_;
+
+    return Data::Context::BEM::Merge->new();
+}
 
 __PACKAGE__->meta->make_immutable;
 
