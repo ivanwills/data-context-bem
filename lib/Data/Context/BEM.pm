@@ -148,6 +148,32 @@ sub get_styles {
 
 sub get_scripts {
     my ($self, $path, $args, $params) = @_;
+
+    # get processed data
+    my $instance = $self->get_instance($path, $params);
+    my $data     = $instance->get_data($params);
+
+    # set template path per config
+    my $paths  = $self->set_template_path($instance);
+    my $blocks = $instance->blocks;
+    my @js;
+
+    BLOCK:
+    for my $block ( keys %$blocks ) {
+        for my $path (@$paths) {
+            if ( -s "$path/blocks/$block/block.js" ) {
+                push @js, file "$path/blocks/$block/block.js";
+                next BLOCK;
+            }
+        }
+    }
+
+    return join "\n",
+        map {
+            "/* FILE : $_ */\n"
+            . $_->slurp;
+        }
+        @js;
 }
 
 sub block_module {
