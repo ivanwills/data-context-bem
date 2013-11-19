@@ -11,9 +11,11 @@
         [%- FOREACH css IN block.styles %]
         <link href="[% css.href || css | html %]" rel="[% css.rel || 'stylesheet' | html %]" type="[% css.type || 'text/css' | html %]" media="[% css.media || 'screen, print' | html %]" />
         [%- END %]
+        <link href="[% styles.href | html %]" rel="[% styles.rel || 'stylesheet' | html %]" type="[% styles.type || 'text/css' | html %]" media="[% styles.media || 'screen, print' | html %]" />
         [%- FOREACH script IN block.scripts %]
         <script type="[% script.type || 'text/javascript' | html %]" src="[% script.src || script | html %]"></script>
         [%- END %]
+        <script type="[% scripts.type || 'text/javascript' | html %]" src="[% scripts.src || script | html %]"></script>
     </head>
     <body>
     [% INCLUDE content %]

@@ -99,8 +99,10 @@ sub get_html {
         "blocks/$base_block/block.tt",
         {
             %{ $params || {} },
-            block => $data,
-            bem   => $self,
+            block   => $data,
+            bem     => $self,
+            styles  => { href => '?bem=1&bem_type=styles'  },
+            scripts => { src  => '?bem=1&bem_type=scripts' },
         },
         \$html,
     ) || do {
