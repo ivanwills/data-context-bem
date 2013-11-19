@@ -116,6 +116,32 @@ sub get_html {
 
 sub get_styles {
     my ($self, $path, $args, $params) = @_;
+
+    # get processed data
+    my $instance = $self->get_instance($path, $params);
+    my $data     = $instance->get_data($params);
+
+    # set template path per config
+    my $paths  = $self->set_template_path($instance);
+    my $blocks = $instance->blocks;
+    my @css;
+
+    BLOCK:
+    for my $block ( keys %$blocks ) {
+        for my $path (@$paths) {
+            if ( -s "$path/blocks/$block/block.css" ) {
+                push @css, file "$path/blocks/$block/block.css";
+                next BLOCK;
+            }
+        }
+    }
+
+    return join "\n",
+        map {
+            "/* FILE : $_ */\n"
+            . $_->slurp;
+        }
+        @css;
 }
 
 sub get_scripts {
@@ -165,7 +191,7 @@ sub set_template_path {
     }
     $self->log->debug('template paths = ', join ', ', @paths);
 
-    return;
+    return \@paths;
 }
 
 sub get_template {
@@ -176,6 +202,7 @@ sub get_template {
 sub dump {
     my $self = shift;
     $self->log->warn(Dumper @_);
+    return;
 }
 
 sub class {

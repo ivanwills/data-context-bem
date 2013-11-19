@@ -116,6 +116,11 @@ sub main {
 
         $out_file->parent->mkpath;
         $out_file->spew($html);
+
+        my $styles = $bem->get_styles($script);
+        my $css = "$out_file";
+        $css =~ s/[.]html$/.css/;
+        file($css)->spew($styles);
     }
 
     warn Dumper $bem->block_map if $option{verbose} > 1;
