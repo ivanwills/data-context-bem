@@ -235,9 +235,20 @@ sub dump {
 
 sub class {
     my ($self, $block) = @_;
+    my @class = ( $block->{block} );
+
+    # Add any modifiers
+    for my $mod (@{ $block->{mods} || [] }) {
+        if ( ! ref $mod ) {
+            push @class, $mod;
+        }
+        elsif ( ref $mod eq 'HASH' ) {
+            push @class, join '_', keys %$mod, values %$mod;
+        }
+    }
 
     # TODO make this work for elements
-    return $block->{block};
+    return join ' ', @class;
 }
 
 sub _template {
