@@ -282,7 +282,6 @@ This documentation refers to Data::Context::BEM version 0.0.1
    # This section will be as far as many users bother reading, so make it as
    # educational and exemplary as possible.
 
-
 =head1 DESCRIPTION
 
 BEM is a framework/protocol for how to build HTML or XML pages. The specification

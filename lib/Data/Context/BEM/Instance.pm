@@ -56,12 +56,11 @@ __END__
 
 =head1 NAME
 
-Data::Context::BEM::Instance - <One-line description of module's purpose>
+Data::Context::BEM::Instance - An instance of a BEM script
 
 =head1 VERSION
 
 This documentation refers to Data::Context::BEM::Instance version 0.0.1
-
 
 =head1 SYNOPSIS
 
@@ -70,7 +69,6 @@ This documentation refers to Data::Context::BEM::Instance version 0.0.1
    # Brief but working code example(s) here showing the most common usage(s)
    # This section will be as far as many users bother reading, so make it as
    # educational and exemplary as possible.
-
 
 =head1 DESCRIPTION
 
