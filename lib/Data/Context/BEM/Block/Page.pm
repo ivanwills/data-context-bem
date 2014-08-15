@@ -17,7 +17,7 @@ use English qw/ -no_match_vars /;
 
 extends 'Data::Context::BEM::Block';
 
-our $VERSION = version->new('0.0.1');
+our $VERSION = version->new('0.0.2');
 
 __PACKAGE__->meta->make_immutable;
 
@@ -31,7 +31,7 @@ Data::Context::BEM::Block::Page - An example BEM block handler
 
 =head1 VERSION
 
-This documentation refers to Data::Context::BEM::Block::Page version 0.0.1
+This documentation refers to Data::Context::BEM::Block::Page version 0.0.2
 
 =head1 SYNOPSIS
 

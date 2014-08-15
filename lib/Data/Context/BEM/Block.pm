@@ -15,7 +15,7 @@ use List::Util;
 use Data::Dumper qw/Dumper/;
 use English qw/ -no_match_vars /;
 
-our $VERSION = version->new('0.0.1');
+our $VERSION = version->new('0.0.2');
 
 __PACKAGE__->meta->make_immutable;
 
@@ -29,7 +29,7 @@ Data::Context::BEM::Block - The base module for custom BEM block handlers
 
 =head1 VERSION
 
-This documentation refers to Data::Context::BEM::Block version 0.0.1
+This documentation refers to Data::Context::BEM::Block version 0.0.2
 
 =head1 SYNOPSIS
 

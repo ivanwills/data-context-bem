@@ -15,7 +15,7 @@ use Data::Dumper qw/Dumper/;
 use English qw/ -no_match_vars /;
 
 
-our $VERSION = version->new('0.0.1');
+our $VERSION = version->new('0.0.2');
 
 
 
@@ -29,7 +29,7 @@ Data::Context::BEM::Block::Story - <One-line description of module's purpose>
 
 =head1 VERSION
 
-This documentation refers to Data::Context::BEM::Block::Story version 0.0.1
+This documentation refers to Data::Context::BEM::Block::Story version 0.0.2
 
 =head1 SYNOPSIS
 
