@@ -93,3 +93,5 @@ tags
 vrc.yml
 tmp.*
 errors.err
+cmds
+log

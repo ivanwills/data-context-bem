@@ -20,7 +20,7 @@ use Path::Class;
 use Data::Context::BEM;
 use Data::Context::Log;
 
-our $VERSION = version->new('0.0.1');
+our $VERSION = version->new('0.0.2');
 my ($name)   = $PROGRAM_NAME =~ m{^.*/(.*?)$}mxs;
 
 my %option = (
@@ -136,7 +136,7 @@ bin/bem-static - <One-line description of commands purpose>
 
 =head1 VERSION
 
-This documentation refers to bin/bem-static version 0.0.1
+This documentation refers to bin/bem-static version 0.0.2
 
 =head1 SYNOPSIS
 

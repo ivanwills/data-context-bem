@@ -43,12 +43,9 @@ not_in_file_ok(README =>
     "'version information here'"  => qr/to provide version information/,
 );
 
-TODO: {
-    local $TODO = 'Add correct changes content';
-    not_in_file_ok(Changes =>
-        "placeholder date/time"       => qr(Date/time)
-    );
-}
+not_in_file_ok(Changes =>
+    "placeholder date/time"       => qr(Date/time)
+);
 
 module_boilerplate_ok('lib/Data/Context/BEM.pm');
 

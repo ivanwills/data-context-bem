@@ -19,7 +19,7 @@ use Data::Context::BEM::Merge;
 
 extends 'Data::Context::Instance';
 
-our $VERSION = version->new('0.0.1');
+our $VERSION = version->new('0.0.2');
 
 has blocks => (
     is      => 'rw',
@@ -60,7 +60,7 @@ Data::Context::BEM::Instance - An instance of a BEM script
 
 =head1 VERSION
 
-This documentation refers to Data::Context::BEM::Instance version 0.0.1
+This documentation refers to Data::Context::BEM::Instance version 0.0.2
 
 =head1 SYNOPSIS
 
