@@ -89,9 +89,9 @@ tags
 
 # Other files of interest
 \..*\.tag$
-.*[.]log
+errors.err
+.travis.yml
 vrc.yml
 tmp.*
-errors.err
 cmds
-log
+.*[.]log
