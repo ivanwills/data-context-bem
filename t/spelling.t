@@ -32,5 +32,7 @@ add_stopwords(qw/
     Yandex
     Yandex's
     Javascript
+    bem
+    html
 /);
 all_pod_files_spelling_ok();
