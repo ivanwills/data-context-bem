@@ -19,7 +19,7 @@ use Template;
 use File::ShareDir qw/module_dir dist_dir/;
 use Path::Class;
 
-our $VERSION = version->new('0.0.3');
+our $VERSION = version->new('0.0.4');
 
 extends 'Data::Context';
 
@@ -272,7 +272,7 @@ Data::Context::BEM - A Perl implementation of BEM
 
 =head1 VERSION
 
-This documentation refers to Data::Context::BEM version 0.0.3
+This documentation refers to Data::Context::BEM version 0.0.4
 
 =head1 SYNOPSIS
 
