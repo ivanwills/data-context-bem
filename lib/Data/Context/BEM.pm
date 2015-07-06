@@ -17,7 +17,7 @@ use English qw/ -no_match_vars /;
 use Data::Context::BEM::Instance;
 use Template;
 use File::ShareDir qw/module_dir dist_dir/;
-use Path::Class;
+use Path::Tiny;
 
 our $VERSION = version->new('0.0.4');
 
@@ -132,7 +132,7 @@ sub get_styles {
     for my $block ( keys %$blocks ) {
         for my $path (@$paths) {
             if ( -s "$path/blocks/$block/block.css" ) {
-                push @css, file "$path/blocks/$block/block.css";
+                push @css, path("$path/blocks/$block/block.css");
                 next BLOCK;
             }
         }
@@ -162,7 +162,7 @@ sub get_scripts {
     for my $block ( keys %$blocks ) {
         for my $path (@$paths) {
             if ( -s "$path/blocks/$block/block.js" ) {
-                push @js, file "$path/blocks/$block/block.js";
+                push @js, path("$path/blocks/$block/block.js");
                 next BLOCK;
             }
         }

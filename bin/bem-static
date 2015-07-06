@@ -16,7 +16,7 @@ use Pod::Usage;
 use Data::Dumper qw/Dumper/;
 use English qw/ -no_match_vars /;
 use FindBin qw/$Bin/;
-use Path::Class;
+use Path::Tiny;
 use Data::Context::BEM;
 use Data::Context::Log;
 
@@ -69,7 +69,7 @@ sub main {
 
     # do stuff here
     $Data::Dumper::Indent = 1;
-    my $log_file = file('bem-static.log')->opena;
+    my $log_file = path('bem-static.log')->opena;
     my $bem = Data::Context::BEM->new(
         path     => $option{dc_path},
         Template => {
@@ -88,7 +88,7 @@ sub main {
 
     $option{out} .= '/' if $option{out} !~ m{/$};
 
-    my @files = dir( $option{dc_path} )->children;
+    my @files = path( $option{dc_path} )->children;
     while ( my $file = shift @files ) {
         if ( -d $file ) {
             push @files, $file->children;
@@ -99,7 +99,7 @@ sub main {
         my $out_file = $file;
         $out_file =~ s/^$option{dc_path}/$option{out}/;
         $out_file =~ s/[.]dc[.]\w+$/.html/;
-        $out_file = file($out_file);
+        $out_file = path($out_file);
 
         my $script = "$file";
         $script =~ s(^$option{dc_path}/?)();
@@ -120,7 +120,7 @@ sub main {
         my $styles = $bem->get_styles($script);
         my $css = "$out_file";
         $css =~ s/[.]html$/.css/;
-        file($css)->spew($styles);
+        path($css)->spew($styles);
     }
 
     warn Dumper $bem->block_map if $option{verbose} > 1;

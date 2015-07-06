@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 use Test::More;
-use Path::Class;
 use Data::Dumper qw/Dumper/;
 
 use Data::Context::BEM::Merge;
