@@ -20,7 +20,7 @@ use Path::Tiny;
 use Data::Context::BEM;
 use Data::Context::Log;
 
-our $VERSION = version->new('0.0.4');
+our $VERSION = version->new('0.0.5');
 my ($name)   = $PROGRAM_NAME =~ m{^.*/(.*?)$}mxs;
 
 my %option = (
@@ -136,7 +136,7 @@ bem-static - Generate static html from BEM data
 
 =head1 VERSION
 
-This documentation refers to bem-static version 0.0.4
+This documentation refers to bem-static version 0.0.5
 
 =head1 SYNOPSIS
 

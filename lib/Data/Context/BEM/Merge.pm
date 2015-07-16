@@ -15,7 +15,7 @@ use List::MoreUtils qw/uniq pairwise/;
 use Data::Dumper qw/Dumper/;
 use English qw/ -no_match_vars /;
 
-our $VERSION = version->new('0.0.4');
+our $VERSION = version->new('0.0.5');
 
 sub merge {
     my ($self, $child, $parent) = @_;
@@ -71,7 +71,7 @@ Data::Context::BEM::Merge - Merge algorithm that merges arrays (not appending th
 
 =head1 VERSION
 
-This documentation refers to Data::Context::BEM::Merge version 0.0.4
+This documentation refers to Data::Context::BEM::Merge version 0.0.5
 
 =head1 SYNOPSIS
 
