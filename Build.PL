@@ -30,7 +30,6 @@ my $builder = Module::Build->new(
         dist   => 'root',
     },
     add_to_cleanup     => [ 'Data-Context-BEM-*' ],
-    create_makefile_pl => 'traditional',
     create_license     => 1,
     meta_merge => {
         resources => {

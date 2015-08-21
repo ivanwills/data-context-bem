@@ -1,14 +1,12 @@
 bin/bem-static
 Build.PL
 Changes
-errors.err
 lib/Data/Context/BEM.pm
 lib/Data/Context/BEM/Block.pm
 lib/Data/Context/BEM/Block/Page.pm
 lib/Data/Context/BEM/Instance.pm
 lib/Data/Context/BEM/Merge.pm
 LICENSE
-Makefile.PL
 MANIFEST
 META.json
 META.yml
