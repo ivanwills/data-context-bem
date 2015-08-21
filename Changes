@@ -1,5 +1,9 @@
 Revision history for Data-Context-BEM
 
+0.0.6   2015-08-21
+        Updating for release of version 0.0.6
+        Removed creation of makefile (Ivan Wills)
+
 0.0.5   2015-07-16
         Updating for release of version 0.0.5
         Converted to Path::Tiny (Ivan Wills)
