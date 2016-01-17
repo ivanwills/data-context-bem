@@ -199,13 +199,15 @@ sub set_template_path {
         $self->log->debug($block);
         next if !$self->block_module($block);
 
-        my $dir = module_dir( $self->block_module($block) );
-        $self->log->info( 'module_dir ' . Dumper { $block => $dir } ) if $self->debug <= 2;
-        next if !$dir || !-d $dir;
+        eval {
+            my $dir = module_dir( $self->block_module($block) );
+            $self->log->info( 'module_dir ' . Dumper { $block => $dir } ) if $self->debug <= 2;
+            next if !$dir || !-d $dir;
 
-        push @paths, $dir;
+            push @paths, $dir;
+        };
     }
-        push @paths, dist_dir('Data-Context-BEM');
+    push @paths, dist_dir('Data-Context-BEM');
 
     # construct page extras
     my @extras;
