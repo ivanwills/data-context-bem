@@ -253,6 +253,11 @@ sub class {
     return join ' ', @class;
 }
 
+sub json {
+    my ($self, $block) = @_;
+    return JSON::XS->new->utf8->relaxed->shrink->encode($block);
+}
+
 sub _template {
     my ($self) = @_;
 
