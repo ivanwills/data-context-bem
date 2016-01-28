@@ -24,6 +24,9 @@ sub merge {
         return $child;
     }
     elsif ( ref $child eq 'ARRAY' ) {
+        if ( ref $parent ne 'ARRAY' ) {
+            $parent = [];
+        }
         my $new = [];
         my $max_child  = @$child  - 1;
         my $max_parent = @$parent - 1;
