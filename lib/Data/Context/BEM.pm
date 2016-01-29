@@ -82,7 +82,7 @@ around get => sub {
 };
 
 sub get_html {
-    my ($self, $path, $args, $params) = @_;
+    my ($self, $path, $params) = @_;
 
     # get processed data
     my $instance = $self->get_instance($path, $params);
@@ -121,7 +121,7 @@ sub get_html {
 }
 
 sub get_styles {
-    my ($self, $path, $args, $params) = @_;
+    my ($self, $path, $params) = @_;
 
     # get processed data
     my $instance = $self->get_instance($path, $params);
@@ -151,7 +151,7 @@ sub get_styles {
 }
 
 sub get_scripts {
-    my ($self, $path, $args, $params) = @_;
+    my ($self, $path, $params) = @_;
 
     # get processed data
     my $instance = $self->get_instance($path, $params);
