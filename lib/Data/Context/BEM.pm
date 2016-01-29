@@ -23,6 +23,10 @@ our $VERSION = version->new('0.0.6');
 
 extends 'Data::Context';
 
+has '+action_class' => (
+    default => 'Data::Context::BEM::Block',
+);
+
 has '+instance_class' => (
     default => 'Data::Context::BEM::Instance',
 );
