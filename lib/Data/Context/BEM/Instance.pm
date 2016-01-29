@@ -39,7 +39,7 @@ around process_data => sub {
         $data->{processed} = 1;
     }
 
-    return $orig->($count, $data, $path);
+    return $self->$orig($count, $data, $path);
 };
 
 sub _merger {
