@@ -15,7 +15,14 @@ use List::Util;
 use Data::Dumper qw/Dumper/;
 use English qw/ -no_match_vars /;
 
+extends 'Data::Context::Actions';
+
 our $VERSION = version->new('0.0.6');
+
+sub get_data {
+    my ($self, $value, $vars, $path, $instance) = @_;
+    return $value;
+}
 
 __PACKAGE__->meta->make_immutable;
 
