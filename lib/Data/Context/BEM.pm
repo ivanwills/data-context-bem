@@ -18,6 +18,7 @@ use Data::Context::BEM::Instance;
 use Template;
 use File::ShareDir qw/module_dir dist_dir/;
 use Path::Tiny;
+use JSON::XS;
 
 our $VERSION = version->new('0.0.6');
 
@@ -259,7 +260,11 @@ sub class {
 
 sub json {
     my ($self, $block) = @_;
-    return JSON::XS->new->utf8->relaxed->shrink->encode($block);
+    my $json = eval { JSON::XS->new->utf8->relaxed->shrink->encode($block); };
+    if ($@) {
+        $json = qq/{error:"$@"}/;
+    }
+    return $json;
 }
 
 sub _template {
