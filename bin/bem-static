@@ -143,12 +143,19 @@ This documentation refers to bem-static version 0.0.6
    bem-static [option]
 
  OPTIONS:
-  -o --other         other option
+  -o --out[=]dir
+                Output directory
+  -p --path[=]path
+                Path for find configuration files
+  -P --Path[=]template-path
+                Path for templates
+  -d --debug[=]level
+                Set the debug level
 
-  -v --verbose       Show more detailed option
-     --version       Prints the version information
-     --help          Prints this help information
-     --man           Prints the full documentation for bem-static
+  -v --verbose  Show more detailed option
+     --version  Prints the version information
+     --help     Prints this help information
+     --man      Prints the full documentation for bem-static
 
 =head1 DESCRIPTION
 
