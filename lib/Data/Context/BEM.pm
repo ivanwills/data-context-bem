@@ -254,6 +254,8 @@ sub class {
         }
     }
 
+    push @class, $block->{class} if $block->{class};
+
     # TODO make this work for elements
     return join ' ', @class;
 }
