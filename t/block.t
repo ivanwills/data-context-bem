@@ -23,7 +23,6 @@ sub actions {
 
     ok $bem, 'Build BEM object orrrectly';
     my $index_data = $bem->get( 'index', { some => 'data' } );
-    ok $index_data->{content}[1]{set}, 'Module called and set';
-
-    diag explain $index_data;
+    ok $index_data->{content}[1]{set}, 'Module called and set'
+        or diag explain $index_data;
 }
