@@ -50,6 +50,10 @@ This documentation refers to Data::Context::BEM::Block version 0.0.6
 
 =head1 SUBROUTINES/METHODS
 
+=head2 C<get_data ($value, $vars, $path, $instance)>
+
+Just returns $value unchanged.
+
 =head1 DIAGNOSTICS
 
 =head1 CONFIGURATION AND ENVIRONMENT

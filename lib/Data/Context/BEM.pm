@@ -353,6 +353,10 @@ Dumps the passed objects to the log file
 
 Returns the classes for a block.
 
+=head3 C<json ($block)>
+
+Returns the block JSON encoded
+
 =head1 DIAGNOSTICS
 
 =head1 CONFIGURATION AND ENVIRONMENT
