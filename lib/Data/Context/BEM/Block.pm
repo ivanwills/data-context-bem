@@ -17,7 +17,7 @@ use English qw/ -no_match_vars /;
 
 extends 'Data::Context::Actions';
 
-our $VERSION = version->new('0.0.6');
+our $VERSION = version->new('0.1');
 
 sub get_data {
     my ($self, $value, $vars, $path, $instance) = @_;
@@ -36,7 +36,7 @@ Data::Context::BEM::Block - The base module for custom BEM block handlers
 
 =head1 VERSION
 
-This documentation refers to Data::Context::BEM::Block version 0.0.6
+This documentation refers to Data::Context::BEM::Block version 0.1
 
 =head1 SYNOPSIS
 

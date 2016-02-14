@@ -16,7 +16,7 @@ use English qw/ -no_match_vars /;
 
 extends 'Data::Context::BEM::Block';
 
-our $VERSION = version->new('0.0.6');
+our $VERSION = version->new('0.1');
 
 sub get_data {
     my ( $self, $data ) = @_;
@@ -37,7 +37,7 @@ Data::Context::BEM::Block::Story - <One-line description of module's purpose>
 
 =head1 VERSION
 
-This documentation refers to Data::Context::BEM::Block::Story version 0.0.6
+This documentation refers to Data::Context::BEM::Block::Story version 0.1
 
 =head1 SYNOPSIS
 
