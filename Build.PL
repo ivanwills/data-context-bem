@@ -14,6 +14,7 @@ my $builder = Module::Build->new(
         'Data::Context::Instance' => '0.2',
         'Data::Context::Log'      => '0.2',
         'File::ShareDir'          => 0,
+        'JSON'                    => 0,
         'JSON::XS'                => 0,
         'List::MoreUtils'         => 0,
         'List::Util'              => 0,
