@@ -96,3 +96,7 @@ tmp.*
 cmds
 .*[.]log
 log
+.editorconfig
+.vtide.yml
+^MYMETA\.json$
+^.*\.lock

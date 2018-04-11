@@ -14,6 +14,7 @@ README
 root/blocks/body/block.tt
 root/blocks/page/block.tt
 t/00-load.t
+t/block.t
 t/bem/blocks/heading/block.css
 t/bem/blocks/heading/block.js
 t/bem/blocks/heading/block.tt
