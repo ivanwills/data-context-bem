@@ -25,6 +25,9 @@ my $builder = Module::Build->new(
         'namespace::autoclean'    => 0,
         'version'                 => 0,
     },
+    configure_requires => {
+        'Module::Build' => 0.38,
+    },
     build_requires => {
         'Test::More'       => '0.88',
         'Test::NoWarnings' => 0,
