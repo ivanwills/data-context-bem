@@ -338,7 +338,7 @@ Returns a module that belongs to a block (if one exists)
 
 =head3 C<set_template_path ( $instance, $device_path )>
 
-Fora given L<Data::Context::BEM::Instance> sets the L<Template> path based
+For a given L<Data::Context::BEM::Instance> sets the L<Template> path based
 on the specified C<template_path> and the blocks used.
 
 =head3 C<get_template ($block)>
