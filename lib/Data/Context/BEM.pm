@@ -20,7 +20,7 @@ use File::ShareDir qw/module_dir dist_dir/;
 use Path::Tiny;
 use JSON::XS;
 
-our $VERSION = version->new('0.1');
+our $VERSION = version->new('0.1.1');
 
 extends 'Data::Context';
 
@@ -290,7 +290,7 @@ Data::Context::BEM - A Perl implementation of BEM
 
 =head1 VERSION
 
-This documentation refers to Data::Context::BEM version 0.1
+This documentation refers to Data::Context::BEM version 0.1.1
 
 =head1 SYNOPSIS
 
